@@ -1,11 +1,11 @@
-site_name: cookiecutter-pdm
-repo_url: https://github.com/fpgmaas/cookiecutter-pdm
-site_url: https://fpgmaas.github.io/cookiecutter-pdm
+site_name: cookiecutter-ml-pdm
+repo_url: https://github.com/wilso/cookiecutter-ml-pdm
+site_url: https://wilsoren.github.io/cookiecutter-ml-pdm
 site_description: A cookiecutter template for Python projects that use PDM for its dependency management
-site_author: Florian Maas
+site_author: Will Sorenson
 edit_uri: edit/main/docs/
-repo_name: fpgmaas/cookiecutter-pdm
-copyright: Maintained by <a href="https://fpgmaas.com">Florian</a>.
+repo_name: fpgmaas/cookiecutter-ml-pdm
+copyright: Maintained by Will Sorenson
 
 nav:
   - Home: index.md

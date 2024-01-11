@@ -48,6 +48,7 @@ done with the following commands:
 
 ```shell
 brew install pipx
+pipx install cookiecutter
 pipx install pdm
 pipx install invoke
 ```
