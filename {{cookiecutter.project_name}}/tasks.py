@@ -1,7 +1,7 @@
 from invoke import task
 @task
 def install(context):
-    """Installs the project's dependencies"""
+    """Installs the project's dependencies. Example: `inv add pandas`"""
     context.run('pdm install')
     context.run('pdm run pre-commit install')
 
@@ -24,16 +24,16 @@ def check(context):
     print("🚀 Linting code: Running pre-commit")
     context.run("pdm run pre-commit run -a")
 
-    { % - if cookiecutter.mypy== 'y' %}
+    {% if cookiecutter.mypy== 'y' %}
     print("🚀 Static type checking: Running mypy")
     context.run("pdm run mypy")
-    {%- endif %}
+    {% endif %}
 
     # Replace 'cookiecutter.deptry' with your method of fetching this variable's value
-    { % - if cookiecutter.deptry == 'y' %}
+    {% if cookiecutter.deptry == 'y' %}
     context.run("🚀 Checking for obsolete dependencies: Running deptry")
     ctx.run("pdm run deptry .")
-    {%- endif %}
+    {% endif %}
 
 @task
 def jupyter(context):
@@ -43,12 +43,17 @@ def jupyter(context):
 @task
 def ipython(context):
     """Runs ipython shell with the project's dependencies installed."""
-    context.run('pdm run ipython')
+    context.run('pdm run ipython', pty=True)
 
 @task
 def loopTest(context):
     """Runs test every time a file is saved and audibly says passed or failed each time. """
-    context.run('ptw --onpass "say passed" --onfail "say failed" --ignore notebooks')
+    context.run('pdm run ptw --onpass "say passed" --onfail "say failed" --ignore notebooks')
+
+@task
+def test(context):
+    """Run Tests"""
+    context.run("pdm run pytest --cov --cov-config=pyproject.toml")
 
 @task
 def docs(context):
@@ -68,11 +73,22 @@ def clean(context):
 
 @task
 def build(context):
+    """publishes wheel and sdist to ./dist"""
     print("🚀 Building package: Running pdm build")
     context.run('pdm build')
 
 @task
+def develop(context, path):
+    """Add a local dependency in location path editable mode. For example `inv develop ../data_access`"""
+    context.run(f"pdm add -e {path}")
+
+@task(pre=[install, test, testDocs, docs, build])
+def release(context):
+    """Installs all package dependencies, runs tests, and then builds the package. """
+
+@task
 def publish(context):
+    """Publishes the package to PyPi"""
     print("🚀 Publishing package: Running pdm publish")
     context.run('pdm publish')
 
@@ -87,5 +103,3 @@ def lt(context):
 def shell(context):
     """alias for ipython command"""
     pass
-
-

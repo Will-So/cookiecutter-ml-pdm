@@ -32,6 +32,9 @@ if __name__ == "__main__":
         remove_file("codecov.yaml")
         if "{{cookiecutter.include_github_actions}}" == "y":
             remove_file(".github/workflows/validate-codecov-config.yml")
-    subprocess.run(['git', 'config', 'filter.nbstripout.clean', 'nbstripout'], check=True)
-    subprocess.run(['git', 'config', 'filter.nbstripout.smudge', 'cat'], check=True)
-    subprocess.run(['git', 'config', 'filter.nbstripout.required', 'true'], check=True)
+
+    nbstripout_path = ".venv/bin/nbstripout"
+    subprocess.run(["git", "init"], check=True)
+    subprocess.run(["git", "config", "filter.nbstripout.clean", nbstripout_path], check=True)
+    subprocess.run(["git", "config", "filter.nbstripout.smudge", "cat"], check=True)
+    subprocess.run(["git", "config", "filter.nbstripout.required", "true"], check=True)

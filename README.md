@@ -14,7 +14,8 @@
 
 
 This ia a template that aims to be able to get started with an ML project without needing to understand `pdm` and all of
-the other tools that go into making modern Python projects possible. Features include:
+the other tools that go into making modern Python projects possible. No more worrying about activating your
+virtual environment first or [TODO] Features include:
 
 - Unified commands using `inv` for all common tasks. Including entering in Ipython shell `inv shell` to testing with `inv test`
 to starting a jupyter lab instanv with `inv jupyter`.
@@ -42,7 +43,7 @@ to starting a jupyter lab instanv with `inv jupyter`.
 
 ### Installing pdm and invoke
 Getting started with this package depends on `pdm` and `invoke`. If you've never
-used these packages, the cleanest way to install them is with `pipx`. You will  
+used these packages, the cleanest way to install them is with `pipx`. You will
 then have it available for all future projects on your machine. On MacOS, this can be
 done with the following commands:
 
@@ -54,19 +55,10 @@ pipx install invoke
 ```
 
 On your local machine, navigate to the directory in which you want to
-create a project directory, and run the following two commands:
+create a project directory and run the following command
 
 ``` bash
-pip install cookiecutter-pdm
-ccpdm
-```
-
-Alternatively, install `cookiecutter` and directly pass the URL to this
-Github repository to the `cookiecutter` command:
-
-``` bash
-pip install cookiecutter
-cookiecutter https://github.com/fpgmaas/cookiecutter-pdm.git
+cookiecutter https://github.com/Will-So/cookiecutter-ml-pdm.git
 ```
 
 Create a repository on GitHub, and then run the following commands, replacing `<project-name>`, with the name that you gave the Github repository and
@@ -74,7 +66,6 @@ Create a repository on GitHub, and then run the following commands, replacing `<
 
 ``` bash
 cd <project_name>
-git init -b main
 git add .
 git commit -m "Init commit"
 git remote add origin git@github.com:<github_author_handle>/<project_name>.git
@@ -98,18 +89,25 @@ For activating the automatic documentation with MkDocs, see
 To enable the code coverage reports, see [here](https://fpgmaas.github.io/cookiecutter-pdm/features/codecov/).
 
 ## Other Types of tasks you may want to define
-### 1. `invoke serve`
+Depending on the project, there will be more commands you want to define in `tasks.py`
+### 1. `inv serve`
+If you want to use FastAPI or something similar to serve a model. You'll want to add a command here.
 
-e.g., if you want to use streamlit. You can have a task that runs something like this:
-
-```streamlit run streamlit_app.py```
+```uvicorn main:app --reload```
 
 ### 2. Invoke cibuild
-To setup the environment to run tests. 
+To setup the environment to run tests.
 
 ### 3. setup
-If you need to e.g., add entries to your database to get started, you can add a setup command. 
+If you need to e.g., add entries to your database to get started, you can add a setup command.
 
+### 4. Dashboarding
+e.g., if you want to use streamlit. You can have a task that runs something like this:
+```streamlit run streamlit_app.py```
+
+### 5. `inv acc` Installation for Accelerators
+If your project uses GPUs or other accelerators, you'll want to define commands that
+install them properly on each type of machine you have.
 
 ## Acknowledgements
 
